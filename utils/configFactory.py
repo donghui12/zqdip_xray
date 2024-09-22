@@ -1,6 +1,7 @@
 import json
 import os
 import time
+import json
 from .color import *
 
 
@@ -292,14 +293,16 @@ class Config:
     def list_node(self):
         if os.path.exists(self.config_path_file):
             print(f"{OK} {Green} 找到文件配置文件 {self.config_path_file} {Font}")
-            myconfig = open(self.config_path_file, "r", encoding='utf-8')
-            print("现在有如下节点")
-            try:
-                for v in myconfig["routing"].get("inbounds"):
-                    print(v["ps"])
-            except Exception as e:
-                print(f"{Error} {Red} 在这个配置文件中没找到节点{Font}: {e}")
-            myconfig.close()
+            # 读取 JSON 文件并解析为 dict
+            with open(self.config_path_file, 'r', encoding='utf-8') as f:
+                my_config = json.load(f)
+                print("现在有如下节点")
+                try:
+                    for v in my_config.get("routing", {}).get("rules", []):
+                        if v.get("inboundTag", []):
+                            print(v.get("inboundTag", [])[0])
+                except Exception as e:
+                    print(f"{Error} {Red} 在这个配置文件中没找到节点{Font}: {e}")
 
     def old_config_check(self):
         if os.path.exists(self.config_path_file):
