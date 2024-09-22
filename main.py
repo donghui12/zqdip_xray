@@ -270,7 +270,7 @@ def config_init(args):
     xray.restart()
     print(f"{OK} {Green} 内核重载配置完毕! {Font}")
     origin_publish.publish_2_txt()
-    publish.publish_2_web()
+    # publish.publish_2_web()
 
 
 def list_node(args):
