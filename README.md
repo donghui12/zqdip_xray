@@ -1,18 +1,16 @@
 # zqdip_xray
 xray 配置 &amp;&amp; 安装
 
- apt-get update &&  apt-get install -y unzip && curl -O http://138.2.231.114/zqdip_xray.zip && unzip zqdip_xray.zip  下载并且解压缩
-进入操做系统准备阶段
+### 系统准备阶段
 cd zqdip_xray && bash prepare.sh run
-安装xray
-apt-get install python3-pip -y # 如果您的系统是基于 Debian/Ubuntu 的
 
-pip3 install psutil
-
+### 安装
 python3 main.py install
+
+### 配置
 python3 main.py config_init --name 555
-手动调整参数
-(venv01) [root@monther test_psutil]# python3 main.py --help
+
+```shell
 usage: main.py [-h] [--list]
                {install,config_init,uninstall,status,show_config} ...
 
@@ -30,7 +28,7 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   --list, -L            列出站群服务器内的所有节点
-修改配置文件
+```
+
+### 修改配置文件
 /usr/local/etc/xray/config.json
-重启xray
-sudo systemctl restart xray
