@@ -77,7 +77,7 @@ def create_sk5_node(transport_layer, ip, port, tag, name, advanced_configuration
                                                 name=name)
     else:
         print(
-            f"{Warning} {Red}作者还没写这个模式 {transport_layer} 请联系作者v ailisi0000  {Font}")
+            f"{Warning} {Red}作者还没写这个模式 {transport_layer} 请联系作者v donghui  {Font}")
         exit(2)
 
     # 整理生成快捷链接的数据，并记录在orgin_link_list
@@ -112,7 +112,7 @@ def create_http_node(transport_layer, ip, port, tag, name, advanced_configuratio
                                             name=name)
     else:
         print(
-            f"{Warning} {Red}作者还没写这个模式 {transport_layer} 请联系作者v ailisi0000  {Font}")
+            f"{Warning} {Red}作者还没写这个模式 {transport_layer} 请联系作者v donghui  {Font}")
         exit(2)
 
     # 整理生成快捷链接的数据，并记录在 origin_link_list
@@ -186,7 +186,7 @@ def config_init(args):
 
     disable_aead_verify = "N"
     # 选择传输层协议
-    top_mode = input("请输入你要制作的协议：【socks5/vmess/trojan/shadowsocks/v2-sk5】")
+    top_mode = input("请输入你要制作的协议：【http/socks5/vmess/trojan/shadowsocks/v2-sk5】")
 
     advanced_configuration = "N"
     sk5_pin_passwd_mode = "N"
@@ -210,9 +210,15 @@ def config_init(args):
         if advanced_configuration == "y":
             sk5_pin_passwd_mode = input("是否启动sk5默认密码放弃随机密码？【y/N】")
             order_ports_mode = str(input("是否顺序生成端口？默认随机生成【y/N】"))
+    elif top_mode == "http":
+        second_mode = str(input("请输入你要创建传输层模式【http/tcp/tcp+udp】"))
+        advanced_configuration = str(input("是否要进入高级配置，定制功能【y/N】"))
+        if advanced_configuration == "y":
+            sk5_pin_passwd_mode = input("是否启动默认密码放弃随机密码？【y/N】")
+            sk5_order_ports_mode = str(input("是否顺序生成端口？默认随机生成【y/N】"))
     else:
         print(
-            f"{Warning} {Red}作者还没写这个模式 {top_mode} 请联系作者v ailisi0000  {Font}")
+            f"{Warning} {Red}作者还没写这个模式 {top_mode} 请联系作者v donghui  {Font}")
         exit(2)
 
     # 若为顺序生成端口模式，从这个端口开始顺序生成
@@ -256,7 +262,7 @@ def config_init(args):
                             sk5_order_ports_mode=sk5_order_ports_mode, sk5_pin_passwd_mode=sk5_pin_passwd_mode)
         else:
             print(
-                f"{Warning} {Red}作者还没写这个模式 {top_mode} 请联系作者v ailisi0000  {Font}")
+                f"{Warning} {Red}作者还没写这个模式 {top_mode} 请联系作者v donghui  {Font}")
             exit(2)
     # print(quick_link_list)
     xray.write_2_file()
