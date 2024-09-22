@@ -16,9 +16,9 @@ def restart_service(service_name):
     try:
         # 使用 systemctl 重启服务
         subprocess.run(['sudo', 'systemctl', 'restart', service_name], check=True)
-        print(f"{service_name} 服务已成功重启")
+        print(f"{OK} {Green} {service_name} 服务已成功重启! {Font}")
     except subprocess.CalledProcessError as e:
-        print(f"重启服务时出错: {e}")
+        print(f"{Error} {Red} 重启服务时出错: {e} {Font}")
 
 
 class Publish(object):
