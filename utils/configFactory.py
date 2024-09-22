@@ -235,6 +235,38 @@ class Config:
             }
         )
 
+    def insert_inbounds_sk5_http_config(self, ipaddr, port, inbounds_tag, user, passwd, name):
+        self.myconfig["inbounds"].append(
+            {
+                "listen": ipaddr,
+                "port": port,
+                "ps": name,
+                "protocol": "http",
+                "settings": {
+                    "auth": "password",
+                    "accounts": [
+                        {
+                            "user": user,
+                            "pass": passwd
+                        }
+                    ],
+                    "udp": False,
+                    "ip": "127.0.0.1"
+                },
+                "streamSettings": {
+                    "network": "tcp",
+                    "security": "none",
+                    "tcpSettings": {
+                        "header": {
+                            "type": "none"
+                        }
+                    }
+                },
+                "tag": inbounds_tag,
+                "sniffing": {}
+            }
+        )
+
 
 
     def print_ram_config(self):

@@ -90,6 +90,38 @@ def create_sk5_node(transport_layer, ip, port, tag, name, advanced_configuration
     quick_link_list.append(quick_link)
 
 
+def create_http_node(transport_layer, ip, port, tag, name, advanced_configuration, sk5_order_ports_mode,
+                     sk5_pin_passwd_mode):
+    # print("DEBUG check mode sock5")
+    # 端口等熵变大
+    if advanced_configuration == "y":
+        if sk5_order_ports_mode == "N":
+            port = random.randint(10000, 30000)
+    # 随机用户预先生成，决定是否覆盖
+    user = ''.join(random.sample(string.ascii_letters + string.digits, 16))
+    passwd = ''.join(random.sample(string.ascii_letters + string.digits, 16))
+    # 部署高级配置 固定用户名密码
+    if advanced_configuration == "y":
+        if sk5_pin_passwd_mode == "y":
+            # 客户增加需求，固定用户名密码？？？？？？？？？端口号
+            user = '12349'
+            passwd = '12349'
+
+    if transport_layer == "http":
+        xray.insert_inbounds_sk5_http_config(ipaddr=ip, port=port, inbounds_tag=tag[0], user=user, passwd=passwd,
+                                            name=name)
+    else:
+        print(
+            f"{Warning} {Red}作者还没写这个模式 {transport_layer} 请联系作者v ailisi0000  {Font}")
+        exit(2)
+
+    # 整理生成快捷链接的数据，并记录在 origin_link_list
+    # origin_link_list 记录raw数据
+    # quick_link_list 记录快速加入链接
+    origin_link = f"ip:{ip} 用户名:{user} 密码:{passwd} 端口：{port} 节点名称:{name}"
+    origin_link_list.append(origin_link)
+
+
 def create_v2_sk5_node(v2_transport_layer, sk5_transport_layer, ip, port, tag, name, advanced_configuration,
                        order_ports_mode, sk5_pin_passwd_mode):
     """
@@ -160,7 +192,7 @@ def config_init(args):
     sk5_pin_passwd_mode = "N"
 
     if top_mode == "socks5":
-        second_mode = str(input("请输入你要创建传输层模式【tcp/tcp+udp】"))
+        second_mode = str(input("请输入你要创建传输层模式【http/tcp/tcp+udp】"))
         advanced_configuration = str(input("是否要进入高级配置，定制功能【y/N】"))
         if advanced_configuration == "y":
             sk5_pin_passwd_mode = input("是否启动默认密码放弃随机密码？【y/N】")
@@ -216,6 +248,12 @@ def config_init(args):
                                ip=ip, port=port, tag=tag, name=name, advanced_configuration=advanced_configuration,
                                order_ports_mode=order_ports_mode,
                                sk5_pin_passwd_mode=sk5_pin_passwd_mode)
+        elif top_mode == "http":
+            xray.insert_routing_config(tag[0], tag[1])
+            xray.insert_outbounds_config(ipaddr=ip, outbound_tag=tag[1])
+            create_http_node(transport_layer=second_mode, ip=ip, port=port, tag=tag, name=name,
+                            advanced_configuration=advanced_configuration,
+                            sk5_order_ports_mode=sk5_order_ports_mode, sk5_pin_passwd_mode=sk5_pin_passwd_mode)
         else:
             print(
                 f"{Warning} {Red}作者还没写这个模式 {top_mode} 请联系作者v ailisi0000  {Font}")
