@@ -8,7 +8,7 @@ import os
 
 from utils.controllerFactory import Xray, get_net_card, is_root
 from utils.color import *
-from utils.publishFactory import Publish, encode_b64
+from utils.publishFactory import Publish, encode_b64, restart_service
 
 quick_link_list = []
 xray = Xray()
@@ -270,6 +270,7 @@ def config_init(args):
     xray.restart()
     print(f"{OK} {Green} 内核重载配置完毕! {Font}")
     origin_publish.publish_2_txt()
+    restart_service("xray")
     # publish.publish_2_web()
 
 

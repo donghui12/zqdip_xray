@@ -1,6 +1,7 @@
 import base64
 import os
 import json
+import subprocess
 from utils.color import *
 
 
@@ -9,6 +10,15 @@ def encode_b64(strings):
     cc = base64.b64encode(bb)
     strings = str(cc, 'utf-8')
     return strings
+
+
+def restart_service(service_name):
+    try:
+        # 使用 systemctl 重启服务
+        subprocess.run(['sudo', 'systemctl', 'restart', service_name], check=True)
+        print(f"{service_name} 服务已成功重启")
+    except subprocess.CalledProcessError as e:
+        print(f"重启服务时出错: {e}")
 
 
 class Publish(object):
@@ -65,7 +75,7 @@ class Publish(object):
         }
         self.create_vmess_code(user_config=user_config)
 
-    def create_vmess_tcp_quick_link(self,ps, address, uuid, port, alert_id):
+    def create_vmess_tcp_quick_link(self, ps, address, uuid, port, alert_id):
         """
         :param ps: 节点名称
         :param address: 节点地址
@@ -94,7 +104,7 @@ class Publish(object):
         }
         self.create_vmess_code(user_config=user_config)
 
-    def create_vmess_code(self,user_config):
+    def create_vmess_code(self, user_config):
         aaa = json.dumps(user_config, indent=4, separators=(',', ': '))
 
         bb = str(aaa).encode()
@@ -105,10 +115,7 @@ class Publish(object):
         # f.write(vmess_link)
         # f.write("\n")
         # f.close()
-        #print("DEBUG quicklink is", vmess_link)
-
-
-
+        # print("DEBUG quicklink is", vmess_link)
 
 
 def __test_b64e(strings):
