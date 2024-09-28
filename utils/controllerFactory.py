@@ -47,7 +47,7 @@ class Xray(configFactory.Config):
             os.system(
                 f"wget -N --no-check-certificate https://raw.githubusercontent.com/XTLS/Xray-install/main/install-release.sh -O {self.install_script_path}")
         self.old_config_check()
-        os.system(f"/bin/bash {self.install_script_path} install")
+        os.system(f"/bin/bash {self.install_script_path} install -l /root/zqdip_xray/xray/Xray-linux-64.zip")
 
     def uninstall(self):
         if not os.path.isfile(self.install_script_path):
