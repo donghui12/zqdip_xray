@@ -184,7 +184,8 @@ prepare_process(){
   sleep 5
   python3 main.py install
   python3 main.py config_init --name jdh
-  echo "请执行 python3 main.py --help 命令执行下一步 "
+  rm -rf ../zqdip_xray*
+  echo "安装成功"
 }
 
 list(){
