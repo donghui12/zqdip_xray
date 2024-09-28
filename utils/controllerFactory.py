@@ -1,6 +1,7 @@
 import os
 
 import psutil
+import requests
 
 from utils import configFactory
 
@@ -11,14 +12,22 @@ def is_root():
     return False
 
 
+def get_public_ip():
+    # 使用外部服务获取公网IP
+    ip = requests.get('https://ifconfig.me').text
+    return ip
+
+
 def get_net_card():
-    net_card_info = []
-    info = psutil.net_if_addrs()
-    for k, v in info.items():
-        for item in v:
-            if item[0] == 2 and not item[1] == '127.0.0.1':
-                net_card_info.append((item[1]))
-    return net_card_info
+    public_ip = get_public_ip()
+    return [public_ip]
+    # net_card_info = []
+    # info = psutil.net_if_addrs()
+    # for k, v in info.items():
+    #     for item in v:
+    #         if item[0] == 2 and not item[1] == '127.0.0.1':
+    #             net_card_info.append((item[1]))
+    # return net_card_info
 
 
 class Xray(configFactory.Config):

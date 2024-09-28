@@ -43,6 +43,7 @@ class Publish(object):
             f.write(i)
             f.write("\n")
         print(f"{OK} {Green} 我们已经帮你记在了 {Red} {self.quick_file} {Green} 文件里 {Font}")
+        print(f"{OK} {Green} 配置成功。配置如下: \n{self.quick_file} {Green}")
         f.close()
 
     def create_vmess_ws_quick_link(self, ps, address, uuid, port, alert_id, path):
