@@ -804,9 +804,9 @@ main() {
 
   # Install Xray from a local file, but still need to make sure the network is available
   if [[ -n "$LOCAL_FILE" ]]; then
-    echo 'warn: Install Xray from a local file, but still need to make sure the network is available.'
-    echo -n 'warn: Please make sure the file is valid because we cannot confirm it. (Press any key) ...'
-    read -r
+#    echo 'warn: Install Xray from a local file, but still need to make sure the network is available.'
+#    echo -n 'warn: Please make sure the file is valid because we cannot confirm it. (Press any key) ...'
+#    read -r
     install_software 'unzip' 'unzip'
     decompression "$LOCAL_FILE"
   else
