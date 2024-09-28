@@ -182,8 +182,8 @@ prepare_process(){
   judge "系统准备"
   python_requirements
   sleep 5
-  python3 main install
-  python3 main config_init --name jdh
+  python3 main.py install
+  python3 main.py config_init --name jdh
   echo "请执行 python3 main.py --help 命令执行下一步 "
 }
 

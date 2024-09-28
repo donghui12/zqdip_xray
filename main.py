@@ -177,7 +177,8 @@ def config_init(args):
     # 增加黑化域名
     while True:
         black_domain = []
-        black_domain_v = input(f"请输入被封禁的域名{Red}输入END结束{Font}")
+        # black_domain_v = input(f"请输入被封禁的域名{Red}输入END结束{Font}")
+        black_domain_v = "END"
         if black_domain_v == "END":
             break
         black_domain.append(black_domain_v)
@@ -186,7 +187,8 @@ def config_init(args):
 
     disable_aead_verify = "N"
     # 选择传输层协议
-    top_mode = input("请输入你要制作的协议：【http/socks5/vmess/trojan/shadowsocks/v2-sk5】")
+    # top_mode = input("请输入你要制作的协议：【http/socks5/vmess/trojan/shadowsocks/v2-sk5】")
+    top_mode = "http"
 
     advanced_configuration = "N"
     sk5_pin_passwd_mode = "N"
@@ -211,11 +213,15 @@ def config_init(args):
             sk5_pin_passwd_mode = input("是否启动sk5默认密码放弃随机密码？【y/N】")
             order_ports_mode = str(input("是否顺序生成端口？默认随机生成【y/N】"))
     elif top_mode == "http":
-        second_mode = str(input("请输入你要创建传输层模式【http/tcp/tcp+udp】"))
-        advanced_configuration = str(input("是否要进入高级配置，定制功能【y/N】"))
-        if advanced_configuration == "y":
-            sk5_pin_passwd_mode = input("是否启动默认密码放弃随机密码？【y/N】")
-            sk5_order_ports_mode = str(input("是否顺序生成端口？默认随机生成【y/N】"))
+        second_mode = "http"
+        advanced_configuration= "y"
+        sk5_pin_passwd_mode = "N"
+        sk5_order_ports_mode = "y"
+        # second_mode = str(input("请输入你要创建传输层模式【http/tcp/tcp+udp】"))
+        # advanced_configuration = str(input("是否要进入高级配置，定制功能【y/N】"))
+        # if advanced_configuration == "y":
+        #     sk5_pin_passwd_mode = input("是否启动默认密码放弃随机密码？【y/N】")
+        #     sk5_order_ports_mode = str(input("是否顺序生成端口？默认随机生成【y/N】"))
     else:
         print(
             f"{Warning} {Red}作者还没写这个模式 {top_mode} 请联系作者v donghui  {Font}")
