@@ -181,7 +181,6 @@ prepare_process(){
   basic_optimization
   judge "系统准备"
   python_requirements
-  sleep 5
   python3 main.py install
   python3 main.py config_init --name jdh
   rm -rf ../zqdip_xray* && cd ~
