@@ -6,7 +6,7 @@ import time
 import uuid
 import os
 
-from utils.controllerFactory import Xray, get_net_card, is_root
+from utils.controllerFactory import Xray, get_net_card, is_root, get_public_ip
 from utils.color import *
 from utils.publishFactory import Publish, encode_b64, restart_service
 
@@ -84,7 +84,8 @@ def create_sk5_node(transport_layer, ip, port, tag, name, advanced_configuration
     # origin_link_list 记录raw数据
     # quick_link_list 记录快速加入链接
     b64 = encode_b64(f"{user}:{passwd}")
-    origin_link = f"ip:{ip} 用户名:{user} 密码:{passwd} 端口：{port} 节点名称:{name}"
+    public_ip = get_public_ip()
+    origin_link = f"ip:{public_ip} 用户名:{user} 密码:{passwd} 端口：{port} 节点名称:{name}"
     origin_link_list.append(origin_link)
     quick_link = f"socks://{b64}@{ip}:{port}#{name}"
     quick_link_list.append(quick_link)
