@@ -97,6 +97,18 @@ EOF
   if [ $? -eq 0 ]; then
     log_success "[$ip] Successfully executed prepare.sh."
     log_success "[$ip] Install successfully!!!"
+
+    # Fetching quick_link.txt from zqpid_xray and appending to host.txt
+    log_info "[$ip] Fetching quick_link.txt from zqpid_xray..."
+    sshpass -p "$password" scp -o StrictHostKeyChecking=no "$user@$ip:/tmp/$(basename "$file_to_copy" .zip)/zqpid_xray/quick_link.txt" ./quick_link_$ip.txt
+    if [ $? -eq 0 ]; then
+      log_success "[$ip] Successfully fetched quick_link.txt."
+      cat quick_link_$ip.txt >> host.txt
+      log_success "[$ip] Appended quick_link.txt to host.txt."
+      rm quick_link_$ip.txt  # Clean up
+    else
+      log_error "[$ip] Failed to fetch quick_link.txt."
+    fi
   else
     log_error "[$ip] Failed to execute prepare.sh."
     log_error "[$ip] Install Failed!!!"
