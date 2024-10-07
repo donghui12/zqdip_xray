@@ -119,7 +119,8 @@ def create_http_node(transport_layer, ip, port, tag, name, advanced_configuratio
     # 整理生成快捷链接的数据，并记录在 origin_link_list
     # origin_link_list 记录raw数据
     # quick_link_list 记录快速加入链接
-    origin_link = f"ip:{ip} 用户名:{user} 密码:{passwd} 端口：{port} 节点名称:{name}"
+    public_ip = get_public_ip()
+    origin_link = f"ip:{public_ip} 用户名:{user} 密码:{passwd} 端口：{port} 节点名称:{name}"
     origin_link_list.append(origin_link)
 
 
@@ -271,7 +272,7 @@ def config_init(args):
             print(
                 f"{Warning} {Red}作者还没写这个模式 {top_mode} 请联系作者v donghui  {Font}")
             exit(2)
-    # print(quick_link_list)
+    print(quick_link_list)
     xray.write_2_file()
     print(f"{OK} {Green} 配置生成完毕! {Font}")
     xray.restart()
